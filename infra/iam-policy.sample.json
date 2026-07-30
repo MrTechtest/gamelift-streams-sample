@@ -1,0 +1,47 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "GameLiftStreamsAdmin",
+      "Effect": "Allow",
+      "Action": [
+        "gameliftstreams:CreateApplication",
+        "gameliftstreams:GetApplication",
+        "gameliftstreams:DeleteApplication",
+        "gameliftstreams:CreateStreamGroup",
+        "gameliftstreams:GetStreamGroup",
+        "gameliftstreams:UpdateStreamGroup",
+        "gameliftstreams:DeleteStreamGroup",
+        "gameliftstreams:StartStreamSession",
+        "gameliftstreams:GetStreamSession",
+        "gameliftstreams:TerminateStreamSession",
+        "gameliftstreams:CreateStreamSessionConnection",
+        "gameliftstreams:ListApplications",
+        "gameliftstreams:ListStreamGroups"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "BuildBucket",
+      "Effect": "Allow",
+      "Action": [
+        "s3:CreateBucket",
+        "s3:PutObject",
+        "s3:GetObject",
+        "s3:ListBucket",
+        "s3:DeleteObject",
+        "s3:DeleteBucket"
+      ],
+      "Resource": [
+        "arn:aws:s3:::glstreams-sample-*",
+        "arn:aws:s3:::glstreams-sample-*/*"
+      ]
+    },
+    {
+      "Sid": "WhoAmI",
+      "Effect": "Allow",
+      "Action": ["sts:GetCallerIdentity"],
+      "Resource": "*"
+    }
+  ]
+}
