@@ -1,0 +1,14 @@
+{
+  "name": "gamelift-streams-sample-web",
+  "version": "1.0.0",
+  "description": "Minimal web app that streams the sample game via Amazon GameLift Streams",
+  "type": "module",
+  "scripts": {
+    "start": "node src/server.js"
+  },
+  "dependencies": {
+    "@aws-sdk/client-gameliftstreams": "^3.0.0",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2"
+  }
+}

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GameLift Streams サンプル</title>
+  <style>
+    :root { color-scheme: dark; }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; font-family: system-ui, "Segoe UI", Roboto, sans-serif;
+      background: #0d1224; color: #e7ecf5; min-height: 100vh;
+      display: flex; flex-direction: column; align-items: center;
+    }
+    header { padding: 22px 16px 8px; text-align: center; }
+    header h1 { margin: 0; font-size: 20px; font-weight: 650; }
+    header p { margin: 6px 0 0; color: #9aa6c4; font-size: 13px; }
+    #stage {
+      position: relative; width: min(1280px, 96vw); aspect-ratio: 16 / 9;
+      margin: 16px auto; background: #05070f; border-radius: 12px;
+      overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,.5);
+      display: flex; align-items: center; justify-content: center;
+    }
+    video { width: 100%; height: 100%; object-fit: contain; background: #05070f; display: block; }
+    #overlay {
+      position: absolute; inset: 0; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 14px; text-align: center;
+      background: radial-gradient(120% 120% at 50% 40%, #131b38 0%, #0a0f22 70%);
+    }
+    #overlay.hidden { display: none; }
+    #launch {
+      appearance: none; border: 0; cursor: pointer;
+      padding: 16px 34px; font-size: 18px; font-weight: 700; color: #06213b;
+      background: linear-gradient(180deg,#7cd4ff,#38a9f5); border-radius: 999px;
+      box-shadow: 0 8px 24px rgba(56,169,245,.35); transition: transform .08s ease;
+    }
+    #launch:hover { transform: translateY(-1px); }
+    #launch:disabled { opacity: .6; cursor: default; transform: none; }
+    #status { min-height: 20px; color: #9aa6c4; font-size: 14px; }
+    .spinner {
+      width: 34px; height: 34px; border-radius: 50%;
+      border: 4px solid #22305a; border-top-color: #7cd4ff;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    #toolbar {
+      display: flex; gap: 10px; align-items: center; margin-bottom: 24px;
+    }
+    #toolbar button {
+      background: #1b2444; color: #cfd8f2; border: 1px solid #2b3a68;
+      border-radius: 8px; padding: 8px 14px; cursor: pointer; font-size: 13px;
+    }
+    #toolbar button:disabled { opacity: .4; cursor: default; }
+    kbd {
+      background:#1b2444;border:1px solid #33427a;border-bottom-width:2px;
+      border-radius:5px;padding:1px 7px;font-size:12px;
+    }
+    .hint { color:#8090b6; font-size:12px; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Amazon GameLift Streams サンプル</h1>
+    <p>「ゲームを起動」を押すとブラウザ内でゲームが始まります。</p>
+  </header>
+
+  <div id="stage">
+    <!-- The Web SDK renders the stream into these elements. -->
+    <video id="stream-video" playsinline autoplay></video>
+    <audio id="stream-audio" autoplay></audio>
+
+    <div id="overlay">
+      <button id="launch">▶ ゲームを起動</button>
+      <div id="status"></div>
+      <div class="hint">キーボード・マウス・ゲームパッドの入力がゲームに転送されます</div>
+    </div>
+  </div>
+
+  <div id="toolbar">
+    <button id="fullscreen" disabled>全画面</button>
+    <button id="stop" disabled>停止</button>
+    <span class="hint">ストリーム接続後、画面をクリックすると入力が有効になります。</span>
+  </div>
+
+  <!--
+    Amazon GameLift Streams Web SDK (v1.2.0, UMD build -> window.gameliftstreams).
+    Bundled from the "Getting started" page download; see ../README (ウェブアプリ節)
+    to refresh it. Update the filename below if you drop in a different version.
+  -->
+  <script src="gameliftstreams-1.2.0.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
